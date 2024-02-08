@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelSchool</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input[type="submit"], button {
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 600px;
+            background-color: rgba(255, 247, 247, 0.8);
+            border-radius: 10px;
+            color: black;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #000;
+        }
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        #avvisiButton, #avvisi {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-51%);
+        }
+        #avvisi {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: black;
+        }
+        #giochiButton {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="background"></div>
+
+<div class="container">
+    <h1>PixelSchool</h1>
+    <button onclick="showInputForm()">INDIRIZZO IP</button>
+    <button id="giochiButton" onclick="openGamesPage()">GIOCHI</button>
+    <button id="aiButton" onclick="openAIPage()">AI</button>
+
+    <div>
+         
+         
+          
+
+         
+         
+
+         <p>
+             
+             
+             
+             
+         </p>
+    </div>
+    <div id="inputForm" style="display: none;">
+        <form id="ipForm">
+            <input type="text" id="ipInput" placeholder="Inserisci l'Indirizzo">
+            <input type="submit" value="Cerca" id="submitButton">
+        </form>
+    </div>
+    <div id="timetable" style="display: none;"></div>
+</div>
+
+<button id="avvisiButton" style="display: none;" onclick="showAvvisi()">AVVISI</button>
+<div id="avvisi" style="display: none;">NESSUN AVVISO PER ORA</div>
+
+<script>
+    function showInputForm() {
+        document.getElementById('inputForm').style.display = "block";
+        document.getElementById('submitButton').style.display = "block";
+        document.getElementById('avvisiButton').style.display = "none";
+        document.getElementById('avvisi').style.display = "none";
+
+
+    }
+
+    document.getElementById('ipForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var ip = document.getElementById('ipInput').value;
+        if (ip === "1ab2") {
+            showTimetable();
+        } else if (ip !== "") {
+            showInCorsoPage();
+        } else {
+            alert("IP non valido!");
+        }
+    });
+
+    function showTimetable() {
+        var timetable = `
+            <h2>Ecco gli orari scolastici:</h2>
+            <table>
+    <tr>
+        <th>ORARIO</th>
+        <td>08:00 - 09:00</td>
+        <td>09:00 - 010:00</td>
+        <td>10:00 - 11:00</td>
+        <td>11:00 - 12:00</td>
+        <td>12:00 - 13:00</td>
+        <td>13:00 - 14:00</td>
+
+    </tr>
+    <tr>
+        <th>Lunedì</th>
+        <td>Italiano</td>
+        <td>Italiano</td>
+        <td>Geografia</td>
+        <td>Arte</td>
+        <td>Musica</td>
+        <td>Scienze</td>
+        <td></td>
+    </tr>
+    <tr>
+        <th>Martedì</th>
+        <td>Geometria</td>
+        <td>Inglese</td>
+        <td>Italiano</td>
+        <td>Tecnologia</td>
+        <td>Francese</td>
+        <td>Francese</td>
+        <td></td>
+    </tr>
+    <tr>
+        <th>Mercoledì</th>
+        <td>Musica</td>
+        <td>Aritmetica</td>
+        <td>Italiano</td>
+        <td>Italiano</td>
+        <td>Storia</td>
+        <td>Inglese</td>
+        <td></td>
+        <tr>
+            </tr>
+            <tr>
+        <th>Giovedì</th>
+        <td>Inglese</td>
+        <td>Arte</td>
+        <td>Scienze</td>
+        <td>Geometria</td>
+        <td>Tecnologia</td>
+        <td>Italiano</td>
+        <td></td>
+    </tr>
+            <tr>
+        <th>Venerdì</th>
+        <td>Aritmetica</td>
+        <td>Storia</td>
+        <td>Educazione Civica</td>
+        <td>Religione</td>
+        <td>Scienze Motorie</td>
+        <td>Scienze Motorie</td>
+        <td></td>
+    <!-- Aggiungi le righe per gli altri giorni -->
+</table>
+        `;
+        document.getElementById('timetable').innerHTML = timetable;
+        document.getElementById('timetable').style.display = "block";
+        document.getElementById('submitButton').style.display = "none"; // Nascondi il pulsante Invia
+        document.getElementById('avvisiButton').style.display = "block";
+
+        // Scorrimento verso la sezione dei venerdì
+        var fridaySection = document.getElementById('fridaySection');
+        if (fridaySection) {
+            window.scrollTo({
+                top: fridaySection.offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    function showInCorsoPage() {
+        document.getElementById('avvisi').innerHTML = "IN CORSO...";
+        document.getElementById('avvisi').style.display = "block";
+        setTimeout(function() {
+            document.getElementById('avvisi').style.display = "none";
+            alert("IP non valido!");
+        }, 3000);
+    }
+    function openAIPage() {
+    window.location.href = "AI.html";
+}
+
+
+    function showAvvisi() {
+        document.getElementById('avvisi').style.display = "block";
+        setTimeout(function() {
+            document.getElementById('avvisi').style.display = "none";
+        }, 3000);
+    }
+
+    function openGamesPage() {
+        window.location.href = "games.html";
+    }
+</script>
+
+</body>
+</html>
