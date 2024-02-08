@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelSchool - Matematica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9c2ff; /* Viola chiaro */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        h1 {
+            color: #1E90FF; /* Blu scuro */
+            margin-bottom: 20px;
+        }
+
+        #problem {
+            font-size: 36px;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 24px;
+            animation: fadeIn 1s ease;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #1E90FF; /* Blu scuro */
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            animation: fadeIn 1s ease;
+        }
+
+        button:hover {
+            background-color: #4682B4; /* Blu acciaio */
+        }
+
+        #message {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        #lives {
+            font-size: 20px;
+            margin-top: 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PixelSchool - Matematica</h1>
+        <div id="problem"></div>
+        <input type="text" id="userAnswer" placeholder="Inserisci la tua risposta">
+        <button onclick="checkAnswer()">Rispondi</button>
+        <p id="message"></p>
+        <p id="lives"></p>
+    </div>
+
+    <script>
+        let num1, num2, operator, correctAnswer;
+        let lives = 7;
+
+        function generateProblem() {
+            num1 = Math.floor(Math.random() * 10) + 1;
+            num2 = Math.floor(Math.random() * 10) + 1;
+            const operators = ['+', '-', '×', '/'];
+            operator = operators[Math.floor(Math.random() * operators.length)];
+            correctAnswer = calculateCorrectAnswer(num1, num2, operator);
+            const displayOperator = operator === '×' ? '×' : operator;
+            document.getElementById('problem').textContent = `${num1} ${displayOperator} ${num2}`;
+        }
+
+        function calculateCorrectAnswer(num1, num2, operator) {
+            switch (operator) {
+                case '+':
+                    return num1 + num2;
+                case '-':
+                    return num1 - num2;
+                case '×':
+                    return num1 * num2;
+                case '/':
+                    return num1 / num2;
+                default:
+                    return NaN;
+            }
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseFloat(document.getElementById('userAnswer').value);
+            if (!isNaN(userAnswer)) {
+                if (userAnswer === correctAnswer) {
+                    document.getElementById('message').textContent = "Corretto!";
+                    document.getElementById('message').style.color = '#388e3c'; /* Verde scuro */
+                } else {
+                    lives--;
+                    document.getElementById('message').textContent = "Sbagliato! Riprova.";
+                    document.getElementById('message').style.color = '#d32f2f'; /* Rosso scuro */
+                }
+                updateLivesDisplay();
+                if (lives <= 0) {
+                    document.getElementById('message').textContent = "Hai esaurito le vite! Game Over.";
+                    document.getElementById('message').style.color = '#d32f2f';
+                    document.getElementById('userAnswer').setAttribute('disabled', true);
+                    document.querySelector('button').setAttribute('disabled', true);
+                    return;
+                }
+                generateProblem();
+                document.getElementById('userAnswer').value = '';
+            } else {
+                document.getElementById('message').textContent = "Inserisci una risposta valida.";
+                document.getElementById('message').style.color = '#d32f2f'; /* Rosso scuro */
+            }
+        }
+
+        function updateLivesDisplay() {
+            document.getElementById('lives').textContent = `Vite rimanenti: ${lives}`;
+        }
+
+        generateProblem();
+        updateLivesDisplay();
+    </script>
+</body>
+</html>

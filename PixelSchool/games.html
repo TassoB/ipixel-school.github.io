@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelSchool - Giochi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            animation: animateBackground 20s linear infinite alternate;
+        }
+
+        @keyframes animateBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        h1 {
+            color: #1E90FF; /* Blu scuro */
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #1E90FF; /* Blu scuro */
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #4682B4; /* Blu acciaio */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PixelSchool - Giochi</h1>
+        <button onclick="openMatematicaPage()">MATEMATICA</button>
+        <button onclick="openIndovinaIlNumeroPage()">INDOVINA IL NUMERO</button>
+    </div>
+
+    <script>
+        function openMatematicaPage() {
+            window.location.href = "matematica.html";
+        }
+
+        function openIndovinaIlNumeroPage() {
+            window.location.href = "indovina_il_numero.html";
+        }
+    </script>
+</body>
+</html>
